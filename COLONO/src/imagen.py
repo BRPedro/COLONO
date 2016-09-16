@@ -57,6 +57,7 @@ class Ventana:
         self.bMyFiltro = Button(self.fBotones, text="Gris", command=lambda: self.filtro_grises(), bg="yellow green", width=18).grid( row=1, column=3)
 
         self.inicio.mainloop()
+        
     def ajustar(self, dir, bandera):
         imag = cv2.imread(dir)
         nombre = ""
@@ -67,11 +68,6 @@ class Ventana:
         res = cv2.resize(imag, (500, 500), interpolation=cv2.INTER_CUBIC)
         cv2.imwrite(nombre, res)
         return nombre
-
-    def cargarImagen2(self,dire):
-        path = dire
-        imagens = ImageTk.PhotoImage(Image.open(path))
-        return imagens
 
 
     def cargarImagen(self,dire):
@@ -86,16 +82,6 @@ class Ventana:
         self.imagelista.lista[1] = ImageTk.PhotoImage(Image.open(dirtem))
         l = self.imagelista.lista[1]
         self.listaL[0].config(image=l)
-
-
-    def direccion2(self):
-        ##direccionString = askopenfilename()
-        l = self.imagelista.lista[0]
-        self.imagelista.lista[2] = PhotoImage(file="cul.gif")
-        l = self.imagelista.lista[2]
-        self.listaL[0].config(image=l)
-        self.listaL[0].config(image=l)
-        self.istaL[0].config(image=l)
 
     def filtro_capertura(self):
         filtro = filtros.Filtros(self.direccionString)
