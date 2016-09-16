@@ -7,7 +7,7 @@ import filtros
 
 # This creates the main window of an application
 class Ventana:
-   def __init__(self):       
+    def __init__(self):
         self.inicio = Tk()
         self.imagelista = listaImagens()
         self.direccionString = ""
@@ -22,23 +22,23 @@ class Ventana:
         self.fCabeza = Frame(self.inicio, bg='white')
         self.fCabeza.grid(column=0, row=0)
         self.logo = ImageTk.PhotoImage(Image.open("logo.gif"))
-        self.lLogo = Label(self.fCabeza, image=logo, bg="light sea green").grid(row=0, column=0)
+        self.lLogo = Label(self.fCabeza, image=self.logo, bg="light sea green").grid(row=0, column=0)
         self.lTitulo = Label(self.fCabeza, text="                                                        CALCULADORA", bg='white',
                         font=("Helvetica", 18)).grid(row=0, column=1)
 
         # **************************Logo y titulo**********************************************
         self.fImagen = Frame(self.inicio)
         self.fImagen.grid(column=0, row=1)
-        self.cul = imagelista.lista[0]
-        self.listaL[0] = Label(self.fImagen, image=cul, bg="light sea green")
+        self.cul = self.imagelista.lista[0]
+        self.listaL[0] = Label(self.fImagen, image=self.cul, bg="light sea green")
         self.listaL[0].config()
         self.listaL[0].grid(row=0, column=0)
 
-        self.listaL[1] = Label(self.fImagen, image=cul, bg="light sea green")
+        self.listaL[1] = Label(self.fImagen, image=self.cul, bg="light sea green")
         self.listaL[1].config()
         self.listaL[1].grid(row=0, column=1)
 
-        self.fBotones = Frame(self.self.inicio)
+        self.fBotones = Frame(self.inicio)
         self.fBotones.grid(column=0, row=2)
         self.bCargar = Button(self.fBotones, text="Cargar", command=lambda: self.direccion(), bg="green", width=18).grid(row=0, column=0)
 
@@ -57,10 +57,6 @@ class Ventana:
         self.bMyFiltro = Button(self.fBotones, text="Gris", command=lambda: self.filtro_grises(), bg="yellow green", width=18).grid( row=1, column=3)
 
         self.inicio.mainloop()
-        
-        
-
-
     def ajustar(self, dir, bandera):
         imag = cv2.imread(dir)
         nombre = ""
@@ -71,7 +67,6 @@ class Ventana:
         res = cv2.resize(imag, (500, 500), interpolation=cv2.INTER_CUBIC)
         cv2.imwrite(nombre, res)
         return nombre
-
 
     def cargarImagen2(self,dire):
         path = dire
@@ -100,8 +95,7 @@ class Ventana:
         l = self.imagelista.lista[2]
         self.listaL[0].config(image=l)
         self.listaL[0].config(image=l)
-        lself.istaL[0].config(image=l)
-        return
+        self.istaL[0].config(image=l)
 
     def filtro_capertura(self):
         filtro = filtros.Filtros(self.direccionString)
@@ -165,5 +159,6 @@ class Ventana:
         self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open(dirtem))
         l = self.imagelista.lista[2]
         self.listaL[1].config(image=l)
+
 
 

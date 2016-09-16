@@ -6,4 +6,4 @@ __author__ = "PBR"
 __date__ = "$16/09/2016 09:45:35 AM$"
 
 if __name__ == "__main__":
-    inicio=imagen.Ventana()
+    imagen.Ventana()
