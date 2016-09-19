@@ -109,4 +109,3 @@ class Filtros:
         # Se aplica la transformacion: Top Hat
         transformacion = cv2.morphologyEx(self.gris, cv2.MORPH_CROSS)
         return transformacion
-
