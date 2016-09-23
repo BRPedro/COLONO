@@ -3,6 +3,7 @@
 # and open the template in the editor.
 import cv2
 import numpy as np
+import pickle
 from time import time
 
 __author__ = "PBR"
@@ -56,8 +57,8 @@ class Filtros:
                     newData[f][c] = [0, 255, 0]
                 else:
                     newData[f][c] = [255, 255, 255]
-        cv2.imwrite('tem0.jpg', newData)
-        tem = cv2.imread('tem0.jpg')
+        cv2.imwrite('verde.jpg', newData)
+        tem = cv2.imread('verde.jpg')
         return tem
 
     def grises(self):
@@ -97,8 +98,23 @@ class Filtros:
 
         # Se aplica la transformacion: Top Hat
         transformacion = cv2.morphologyEx(self.gris, cv2.MORPH_TOPHAT, kernel)
-        return transformacion
+        filas, columnas = transformacion.shape
+        matriz = np.zeros(shape=(filas,columnas))
+        dataI = np.array(transformacion)
+        for f in range(filas):
+            for c in range(columnas):
+                if dataI[f][c]<=40:
+                    dataI[f][c]=0
+        cv2.imwrite('error.jpg', dataI)
+        tem = cv2.imread('error.jpg')
+        return tem
 
+
+
+        
+        #transformacion = cv2.bilateralFilter(transformacion,9,75,75)
+        #transformacion= cv2.medianBlur(transformacion,3)
+        return transformacion
 
     def black_Hat(self):
         # Cargar la mascara
@@ -107,5 +123,8 @@ class Filtros:
         kernel = np.ones((9, 9), np.uint8)
 
         # Se aplica la transformacion: Top Hat
-        transformacion = cv2.morphologyEx(self.gris, cv2.MORPH_CROSS)
+        transformacion = cv2.morphologyEx(self.gris, cv2.MORPH_TOPHAT, kernel)
+        #transformacion = cv2.bilateralFilter(transformacion,9,75,75)
         return transformacion
+
+ 

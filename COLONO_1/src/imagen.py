@@ -161,4 +161,6 @@ class Ventana:
         self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open("tem2bh.jpg"))
         l = self.imagelista.lista[2]
         self.listaL[1].config(image=l)
+
+
         
