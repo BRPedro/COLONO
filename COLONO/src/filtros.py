@@ -4,6 +4,7 @@
 import cv2
 import numpy as np
 from time import time
+import conteo
 
 __author__ = "PBR"
 __date__ = "$01/09/2016 11:13:37 AM$"
@@ -11,7 +12,7 @@ __date__ = "$01/09/2016 11:13:37 AM$"
 
 class Filtros:
     def __init__(self, imagen):
-        print 1,2,imagen
+        self.direccion=imagen
         self.imagen = cv2.imread(imagen)
         self.gris = cv2.cvtColor(self.imagen, cv2.COLOR_BGR2GRAY)
         self.data = np.array(self.imagen)
@@ -87,7 +88,15 @@ class Filtros:
         cv2.imwrite('gris2.jpg', gris2)
         print 'El tiempo de ejecucion de propio fue:', tiempo_ejecucion  # En segundos
         print "Hola Pedro"
-
-
-
-
+    
+    def contar(self):
+        return (conteo.Conteo(self.direccion)).mi_contador()
+    
+    def fucion(self):
+        ima1=self.erosion()
+        ima2=self.mi_filtro()
+        tem=cv2.AddWeighted(ima1, 0.5, ima2, 0.3, 0) 
+        cv2.imwrite('fucion.jpg', tem)
+        return tem
+        
+        

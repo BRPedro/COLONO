@@ -56,6 +56,10 @@ class Ventana:
 
         self.bMyFiltro = Button(self.fBotones, text="Gris", command=lambda: self.filtro_grises(), bg="yellow green", width=18).grid( row=1, column=3)
 
+        self.bMyFiltro = Button(self.fBotones, text="Contar", command=lambda: self.filtro_Contar(), bg="yellow green", width=18).grid( row=1, column=4)
+
+        self.bMyFiltro = Button(self.fBotones, text="fundir", command=lambda: self.filtro_fucion(), bg="yellow green", width=18).grid( row=0, column=4)
+
         self.inicio.mainloop()
         
     def ajustar(self, dir, bandera):
@@ -145,6 +149,22 @@ class Ventana:
         self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open(dirtem))
         l = self.imagelista.lista[2]
         self.listaL[1].config(image=l)
+        
+    def filtro_Contar(self):
+        filtro = filtros.Filtros(self.direccionString)
+        resultado = filtro.contar()
+        cv2.imwrite("tem2contar.jpg", resultado)
+        dirtem = self.ajustar("tem2contar.jpg", False)
+        self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open(dirtem))
+        l = self.imagelista.lista[2]
+        self.listaL[1].config(image=l)
 
-
+    def filtro_fucion(self):
+        filtro = filtros.Filtros(self.direccionString)
+        resultado = filtro.fucion()
+        cv2.imwrite("tem2fucion.jpg", resultado)
+        dirtem = self.ajustar("tem2fucion.jpg", False)
+        self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open(dirtem))
+        l = self.imagelista.lista[2]
+        self.listaL[1].config(image=l)
 
