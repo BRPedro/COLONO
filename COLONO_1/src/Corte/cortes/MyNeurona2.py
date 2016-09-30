@@ -52,6 +52,21 @@ for contar in range(1,10):
     listcarg=[]
     print contar
 
+
+
+    def crearmMatrizImag(dir):
+        matrizImg=[]
+        imagen = cv2.imread(dir)
+        data = np.array(imagen)
+        filas, columnas, tipo = imagen.shape
+        for f in range(filas):
+            for c in range(columnas):
+                rojo, verde, azul = data[f][c]
+                promedio = ((int(rojo) + int(verde) + int(azul)) // 3)
+                matrizImg.append(promedio)
+        return matrizImg
+
+"""
 listatem = []
 imagen = cv2.imread("corte1_3.jpg")
 data = np.array(imagen)
@@ -122,3 +137,4 @@ listcarg.append(listatem)
 
 predicted_output = net.sim([listatem])
 print predicted_output
+"""
