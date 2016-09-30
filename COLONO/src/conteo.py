@@ -182,6 +182,7 @@ class Conteo:
         for i in self.centroides:
             cv2.circle(tem, (i[0], i[1]), 10, (0, 0, 255), 0)
         cv2.imwrite('contado.jpg', tem)
+        print len(self.centroides)
         return tem
     
     
