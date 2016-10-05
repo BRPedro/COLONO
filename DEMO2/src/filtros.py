@@ -1,10 +1,10 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+import conteo
 import cv2
 import numpy as np
 from time import time
-import conteo
 
 __author__ = "PBR"
 __date__ = "$01/09/2016 11:13:37 AM$"
@@ -12,7 +12,8 @@ __date__ = "$01/09/2016 11:13:37 AM$"
 
 class Filtros:
     def __init__(self, imagen):
-        self.direccion=imagen
+        
+        self.direccion = imagen
         self.imagen = cv2.imread(imagen)
         self.gris = cv2.cvtColor(self.imagen, cv2.COLOR_BGR2GRAY)
         self.data = np.array(self.imagen)
@@ -23,13 +24,13 @@ class Filtros:
         return cierre
 
     def apertura(self):
-        kernel9 = np.ones((9, 9), np.uint8)
+        kernel9 = np.ones((15, 15), np.uint8)
         apertura = cv2.morphologyEx(self.gris, cv2.MORPH_OPEN, kernel9)
         return apertura
 
     def erosion(self):
-        kernel11 = np.ones((11, 11), np.uint8)
-        erosion = cv2.erode(self.gris, kernel11, iterations=1)
+        kernel11 = np.ones((10, 10), np.uint8)
+        erosion = cv2.erode(self.gris, kernel11, iterations=2)
         return erosion
 
     def dilatacion(self):
@@ -58,8 +59,8 @@ class Filtros:
                     newData[f][c] = [0, 255, 0]
                 else:
                     newData[f][c] = [255, 255, 255]
-        cv2.imwrite('tem0.jpg', newData)
-        tem = cv2.imread('tem0.jpg')
+        cv2.imwrite('imagenProceso\\tem0.jpg', newData)
+        tem = cv2.imread('imagenProceso\\tem0.jpg')
         return tem
 
     def grises(self):
@@ -67,12 +68,8 @@ class Filtros:
         return gris2
 
     def dos_grises(self):
-        tiempo_inicial = time()
         gris2 = cv2.cvtColor(self.imagen, cv2.COLOR_BGR2GRAY)
-        tiempo_final = time()
-        tiempo_ejecucion = tiempo_final - tiempo_inicial
-        cv2.imwrite('gris1.jpg', gris2)
-        print 'El tiempo de ejecucion de opencv fue:', tiempo_ejecucion  # En segundos
+        cv2.imwrite('imagenProceso\\gris1.jpg', gris2)
 
         tiempo_inicial = time()
         newData = self.data
@@ -82,21 +79,30 @@ class Filtros:
                 rojo, verde, azul = self.data[f][c]
                 promedio = (rojo + verde + azul) // 3
                 newData[f][c] = [promedio, promedio, promedio]
-        cv2.imwrite('gris2.jpg', newData)
-        tiempo_final = time()
-        tiempo_ejecucion = tiempo_final - tiempo_inicial
-        cv2.imwrite('gris2.jpg', gris2)
-        print 'El tiempo de ejecucion de propio fue:', tiempo_ejecucion  # En segundos
-        print "Hola Pedro"
+        cv2.imwrite('imagenProceso\\gris2.jpg', newData)
+        cv2.imwrite('imagenProceso\\gris2.jpg', gris2)
+ 
     
-    def contar(self):
+    def contar(self):        
         return (conteo.Conteo(self.direccion)).mi_contador()
     
     def fucion(self):
-        ima1=self.erosion()
-        ima2=self.mi_filtro()
-        tem=cv2.AddWeighted(ima1, 0.5, ima2, 0.3, 0) 
-        cv2.imwrite('fucion.jpg', tem)
+        ima1 = self.erosion()
+        ima2 = self.mi_filtro()
+        tem = cv2.AddWeighted(ima1, 0.5, ima2, 0.3, 0) 
+        cv2.imwrite('imagenProceso\\fucion.jpg', tem)
         return tem
+    
+    def detailEnhance (self):        
+        dst = cv2.detailEnhance(self.imagen, sigma_s=10, sigma_r=0.15)
+        return dst
+    
+    def combinacionFiltro1(self):
         
-        
+        edges = cv2.Canny(self.imagen, 100, 200)
+        cv2.imwrite('imagenProceso\\combinacionFiltro1.jpg', edges)
+        edges = cv2.Canny(self.imagen, 100, 200)
+        #return cv2.imread('imagenProceso\\combinacionFiltro1.jpg')
+
+
+
