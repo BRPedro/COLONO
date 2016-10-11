@@ -30,6 +30,10 @@ class Conteo:
         self.espera2=False
         self.espera3=False
         self.espera4=False
+        self.espera5=False
+        self.espera6=False
+
+        self.CuadradosC1 = [[[0,0]]*(self.columna)]*(self.fila)
         
     def getResultado(self):
         return self.resultado
@@ -164,10 +168,15 @@ class Conteo:
 #*********************** hilos metodo****************************
 
     def listaErosion(self):
+
         kernel11 = np.ones((10, 10), np.uint8)
         gris2 = cv2.cvtColor(self.imagen, cv2.COLOR_BGR2GRAY)
         erosion = cv2.erode(gris2, kernel11, iterations=2)
         matrizEro = np.array(erosion)
+        self.espera5=False
+        t0=threading.Thread(target=self.matrizVerde)
+        t0.start()
+
         listaEro = []
         filas, columnas, tipo = self.imagen.shape
         for f in range(filas):
@@ -176,20 +185,16 @@ class Conteo:
         largo=len(listaEro)//4
         print "Paso1"
         self.seteo()
-
+        print len(listaEro)
         t1=threading.Thread(target=self.metodoHilosAgrupar,args=(listaEro[0:largo],1,))
         t2=threading.Thread(target=self.metodoHilosAgrupar,args=(listaEro[largo:(largo*2)],2,))
         t3=threading.Thread(target=self.metodoHilosAgrupar ,args= (listaEro[(largo*2):(largo*3)],3,))
         t4=threading.Thread(target=self.metodoHilosAgrupar,args= (listaEro[(largo*3):len(listaEro)],4,))
 
         t1.start()
-        print 1
         t2.start()
-        print 2
         t3.start()
-        print 3
         t4.start()
-        print 4
 
         while True:
             if self.espera1 and self.espera2 and self.espera3 and self.espera4:
@@ -216,8 +221,23 @@ class Conteo:
         while True:
             if self.espera1:
                 break
-        print self.lista1
+        for i in self.lista1:
+            self.centroideCuadrado(i)
+        print len(self.lista1)
+        self.dibujarCentroErosion(erosion,self.lista1)
+        print self.CuadradosC1
         print "fin"
+
+        while True:
+            if self.espera5:
+                break
+        listaC=self.combinar()
+        tem = cv2.imread(self.dir)
+        for i in listaC:
+            cv2.circle(tem, (i[0], i[1]), 6, (0, 0, 255), 0)
+        cv2.imwrite('contado.jpg', tem)
+        self.resultad = tem
+        return tem,len(listaC)
 
 
 
@@ -267,5 +287,43 @@ class Conteo:
         self.lista3=[]
         self.lista4=[]
 
+    def centroideCuadrado(self,lista):
+        maxF,maxC=0,0
+        minF,minC=self.fila-1,self.columna-1
+        for temp in lista:
+            if temp[0][0]>maxF: maxF=temp[0][0]
+            elif temp[0][0]<minF: minF=temp[0][0]
+            if temp[0][1]>maxC: maxC=temp[0][1]
+            elif temp[0][1]<minC:minC=temp[0][1]
+        for temp in lista:
+            self.CuadradosC1[temp[0][0]][temp[0][1]]=[(((maxC-minC) / 2) + minC), (((maxF-minF) / 2) + minF)]
 
+    def matrizVerde(self):
+        self.espera5=False
+        for f in range(self.fila):
+            for c in range(self.columna):
+                rojo, verde, azul = self.matrizOrig[f][c]
+                if (rojo < verde) and (azul < verde):
+                    self.newData[f][c] = 1
+                else:
+                    self.newData[f][c] = 0
+        self.espera5=True
 
+    def combinar(self):
+        listaT=[]
+        for f in range(self.fila):
+            for c in range(self.columna):
+                if self.newData[f][c]==1:
+                    if listaT.count(self.CuadradosC1[f][c])==0:
+                        listaT.append(self.CuadradosC1[f][c])
+        return listaT
+
+    def dibujarCentroErosion(self,imagen,lista):
+        listas=[]
+        for f in range(self.fila):
+            for c in range(self.columna):
+               if listas.count(self.CuadradosC1[f][c])==0:
+                   listas.append(self.CuadradosC1[f][c])
+        for i in listas:
+            cv2.circle(imagen, (i[0], i[1]), 6, (0, 0, 255), 0)
+        cv2.imwrite('centroErosion.jpg', imagen)

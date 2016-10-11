@@ -20,7 +20,7 @@ class Ventana:
         self.listaL = ["", ""]
         
         self.inicio.title("Calculadora")
-        self.inicio.geometry("1000x600")
+        self.inicio.geometry("1000x700")
         self.inicio.configure(background='white')
 
 

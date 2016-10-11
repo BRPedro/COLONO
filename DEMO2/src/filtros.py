@@ -29,8 +29,8 @@ class Filtros:
         return apertura
 
     def erosion(self):
-        kernel11 = np.ones((10, 10), np.uint8)
-        erosion = cv2.erode(self.gris, kernel11, iterations=2)
+        kernel11 = np.ones((5, 5), np.uint8)
+        erosion = cv2.erode(self.gris, kernel11, iterations=1)
         return erosion
 
     def dilatacion(self):
@@ -85,6 +85,7 @@ class Filtros:
     
     def contar(self):        
         return (conteo.Conteo(self.direccion)).mi_contador()
+        #return  (conteo.Conteo(self.direccion)).listaErosion()
     
     def fucion(self):
         ima1 = self.erosion()
