@@ -15,28 +15,28 @@ import cv2
 from imagenes import *
 import threading
 import time
+import conteoCombinado as CC
 
 class Ventana:
     def __init__(self):
-        self.contadorE,self.contadorP=0,0
-        self.filtro=0
         self.inicio = Tk()
         self.imagelista = listaImagens()
         self.direccionString = ""
         self.listaL = ["", ""]
-        self.imagenReal=0
 
-        self.altura=0
+        self.filtro=2
+        self.altura=15
         self.tipoBanda=0
         self.coodenadas=[0.0,0.0]
-        self.tiempoV=0
         self.fila=0
         self.columna=0
         self.tipo=0
-        self.escala=0.0
-        self.ajuste=0.0
-        self.circulo=0
-        
+        self.escala=0.25
+        self.ajuste=20.0
+        self.circulo=10
+
+        self.contador=0
+
         self.inicio.title("Calculadora")
         self.inicio.geometry("1000x700")
         self.inicio.configure(background='white')
@@ -71,8 +71,7 @@ class Ventana:
 
         self.fBotones = Frame(self.inicio)
         self.fBotones.grid(column=0, row=3)
-        self.bCargar = Button(self.fBotones, text="Cargar", command=lambda: self.direccion(), bg="green", width=18).grid(row=0, column=0)
-        self.bMyFiltro = Button(self.fBotones, text="Contar", command=lambda: self.filtro_Contar(), bg="yellow green", width=18).grid( row=0, column=1)
+        self.bMyFiltro = Button(self.fBotones, text="Contar Plantas", command=lambda: self.contarPlantas(), bg="yellow green", width=18).grid( row=0, column=0)
 
         self.menu1 = Menu(self.inicio)
         self.inicio.config(menu=self.menu1)
@@ -82,7 +81,7 @@ class Ventana:
         self.menu1_1.add_cascade(label="Guardar",command=lambda: self.mostrarOcultar(self.ajusteV,self.inicio))
 
         self.menu1_2 = Menu(self.menu1, tearoff=0)
-        self.menu1.add_cascade(label="Ajustes",command=lambda: self.mostrarOcultar(self.ajusteV,self.inicio))
+        self.menu1.add_cascade(label="Ajustes",command=lambda: self.iniciarVentanaAjustes())
 
 
         """******************************Ventana de Cargado******************************"""
@@ -104,7 +103,7 @@ class Ventana:
         self.framelabelCV=Frame(self.cargadoV, bg='white')
         self.framelabelCV.grid(column=0, row=1)
 
-        self.lResoluccionCV=Label(self.framelabelCV,text="Resolucio:",bg='white',width=10).grid(row=0,column=0)
+        self.lResoluccionCV=Label(self.framelabelCV,text="Resolucio:",bg='white',width=20).grid(row=0,column=0)
         self.textResolucionCV=StringVar()
         self.textResolucionCV.set(str(self.fila)+" x "+str(self.columna))
         self.textBoxResolucionCV=Label(self.framelabelCV,textvariable=self.textResolucionCV,bg='white',width=20).grid(row=0,column=1)
@@ -132,24 +131,35 @@ class Ventana:
         self.comboboxTipoCV.current(0)
         self.comboboxTipoCV.grid(row=3,column=1)
 
+        self.textboxAlturaCV=StringVar()
+        self.textboxAlturaCV.set(str(self.altura))
         self.lAlturaCV=Label(self.framelabelCV,text="Altura de vuelo:",bg='white',width=15).grid(row=4,column=0)
-        self.eAlturaCV=Entry(self.framelabelCV,text="15",font=("Helvetica", 13),fg="black", bg='white').grid(row=4,column=1)
+        self.eAlturaCV=Entry(self.framelabelCV,textvariable=self.textboxAlturaCV,bg='white').grid(row=4,column=1)
 
 
         self.lEscalCV=Label(self.framelabelCV,text="Escala pixeles:",width=15).grid(row=5,column=0)
-        self.eEscalaCV=Entry(self.framelabelCV,text="1",font=("Helvetica", 13),fg="black", bg='white').grid(row=5,column=1)
+        self.textboxEscalaCV=StringVar()
+        self.textboxEscalaCV.set(str(self.escala))
+        self.eEscalaCV=Entry(self.framelabelCV,textvariable=self.textboxEscalaCV, bg='white').grid(row=5,column=1)
 
+        #---------------Frame de sector de Error---------------
+        self.frameErrorCV=Frame(self.cargadoV, bg='white')
+        self.frameErrorCV.grid(column=0, row=2 )
+
+        self.textVariableErrorCV=StringVar()
+        self.textVariableErrorCV.set("     ")
+        self.errorAV=Label(self.frameErrorCV,textvariable=self.textVariableErrorCV,bg='white',width=35,  height=2 ).grid(row=0,column=0)
 
         #---------------Frame de sector de Botones---------------
         self.frameBoteonesCV=Frame(self.cargadoV, bg='white')
-        self.frameBoteonesCV.grid(column=0, row=2 )
+        self.frameBoteonesCV.grid(column=0, row=3 )
 
         self.bAceptarCV = Button(self.frameBoteonesCV, text="Aceptar", command=lambda: self.botonAceptar(0), bg="yellow green", width=18).grid( row=0, column=0)
         self.bCancelarCV = Button(self.frameBoteonesCV, text="Cancelar", command=lambda: self.botonCancelar(0), bg="yellow green", width=18).grid( row=0, column=1)
 
         #-----------------------------------------------------------
 
-        """******************************Ventana de Cargado******************************"""
+        """******************************Ventana de Ajuste******************************"""
         self.ajusteV=Toplevel(self.inicio)
         self.ajusteV.title("Ajuste")
         self.ajusteV.configure(background='white')
@@ -172,7 +182,7 @@ class Ventana:
         self.textVariableFiltradoAV.set(str(self.filtro))
         self.textBoxAlturaAV=Entry(self.framelabeAV,textvariable=self.textVariableFiltradoAV,bg='white',width=5).grid(row=2,column=1)
 
-        self.lAjusteAV=Label(self.framelabeAV,text="Ajuste de proximidad:",bg='white',width=15).grid(row=3,column=0)
+        self.lAjusteAV=Label(self.framelabeAV,text="Ajuste de proximidad:",bg='white',width=20).grid(row=3,column=0)
         self.textVariableAjusteAV=StringVar()
         self.textVariableAjusteAV.set(str(self.ajuste))
         self.textBoxAlturaAV=Entry(self.framelabeAV,textvariable=self.textVariableAjusteAV,bg='white',width=5).grid(row=3,column=1)
@@ -192,37 +202,48 @@ class Ventana:
         self.textBoxTamnnoCV=Entry(self.frameCoordenadasAV,textvariable=self.textVariableLatitudAV,bg='white',width=5).grid(row=0,column=0)
         self.textBoxTamnnoCV=Entry(self.frameCoordenadasAV,textvariable=self.textVariableLongitudAV,bg='white',width=5).grid(row=0,column=1)
 
+        self.frameErrorAV=Frame(self.ajusteV, bg='white')
+        self.frameErrorAV.grid(row=1,column=0)
+
         self.textVariableErrorAV=StringVar()
         self.textVariableErrorAV.set("     ")
-        self.errorAV=Label(self.framelabeAV,textvariable=self.textVariableErrorAV,bg='white',width=10, ).grid(row=6,column=0)
+        self.errorAV=Label(self.frameErrorAV,textvariable=self.textVariableErrorAV,bg='white',width=35,  height=2 ).grid(row=0,column=0)
 
         self.frameBoteonesAV=Frame(self.ajusteV, bg='white')
-        self.frameBoteonesAV.grid(column=0, row=1)
+        self.frameBoteonesAV.grid(column=0, row=2)
 
         self.bAceptarCV = Button(self.frameBoteonesAV, text="Aceptar", command=lambda: self.botonAceptar(1), bg="yellow green", width=18).grid( row=0, column=0)
         self.bCancelarCV = Button(self.frameBoteonesAV, text="Cancelar", command=lambda: self.botonCancelar(1), bg="yellow green", width=18).grid( row=0, column=1)
 
         #-----------------------------------------------------------
+
+        """******************************Ventana de Espera******************************"""
+
+        self.procesoV=Toplevel(self.inicio)
+        self.procesoV.title("Proceso")
+        self.procesoV.configure(background='white')
+
+        self.imagP = self.imagelista.escaneo[0]
+        self.imagePV = Label(self.procesoV, image=self.imagP, bg='white')
+        self.imagePV.config()
+        self.imagePV.grid(row=0, column=0)
+
+        self.textVariablePasoPV=StringVar()
+        self.textVariablePasoPV.set("Paso: 1")
+        self.labelTextPasoPV=Label(self.procesoV,textvariable=self.textVariablePasoPV,bg='white',width=10).grid(row=1,column=0)
+
+
+
         self.ajusteV.withdraw()
         self.cargadoV.withdraw()
+        self.procesoV.withdraw()
         self.inicio.mainloop()
 
     def mostrarOcultar(self,ver,ocultar):#Mostrar ventana registro y ocultar la de inicio
         ocultar.withdraw()
         ver.deiconify()
         
-    def ajustar(self, dir, bandera):
-        imag = cv2.imread(dir)
-        nombre = ""
-        if bandera:
-            nombre = "tem1.jpg"
-        else:
-            nombre = "tem2.jpg"
-        res = cv2.resize(imag, (500, 500), interpolation=cv2.INTER_CUBIC)
-        cv2.imwrite(nombre, res)
-        return nombre
-
-    def ajustar2(self):
+    def ajustar(self):
         f,c,t=self.imagen.shape
         imag=self.imagen
         if f>400:
@@ -235,36 +256,39 @@ class Ventana:
         cv2.imwrite("imagenesInterfaz\\principal\\ajustar.jpg", imag)
         return "imagenesInterfaz\\principal\\ajustar.jpg"
 
-
+    def ajustarConParametro(self,imagen):
+        f,c,t=imagen.shape
+        if f>400:
+            porcen=(400.0*100.0/f)/100.0
+            imag=cv2.resize(imagen, (int(c*porcen),int(f*porcen)), interpolation=cv2.INTER_CUBIC)
+        f,c,t=imagen.shape
+        if c>400:
+            porcen=(400.0*100.0/c)/100.0
+            imag=cv2.resize(imagen, (int(c*porcen),int(f*porcen)), interpolation=cv2.INTER_CUBIC)
+        cv2.imwrite("imagenesInterfaz\\principal\\ajustar.jpg", imagen)
+        return "imagenesInterfaz\\principal\\ajustar.jpg"
 
     def cargarImagen(self,dire):
         imagens = PhotoImage(file=dire)
         return imagens
 
-
-    def direccion(self):
-        self.direccionString = askopenfilename()
-        dirtem = self.ajustar(self.direccionString, True)
-
-        self.imagelista.lista[1] = ImageTk.PhotoImage(Image.open(dirtem))
-        l = self.imagelista.lista[1]
-        self.listaL[0].config(image=l)
-
     def seleccionarImagen(self):
-        self.direccionString = askopenfilename()
+        try:
+            self.direccionString = askopenfilename()
+            self.imagen=cv2.imread(self.direccionString)
+            self.fila,self.columna,self.tipo =self.imagen.shape
+            dirtem = self.ajustar()
+            self.imagelista.lista[1] = ImageTk.PhotoImage(Image.open(dirtem))
+            l = self.imagelista.lista[1]
+            self.listaL[0].config(image=l)
+            self.lCVimagen.config(image=l)
+            self.textResolucionCV.set(str(self.fila)+" x "+str(self.columna))
+            self.textTamnnoCV.set(str(self.fila*self.columna))
 
-        self.imagen=cv2.imread(self.direccionString)
-        self.fila,self.columna,self.tipo =self.imagen.shape
-        dirtem = self.ajustar2()
-        self.imagelista.lista[1] = ImageTk.PhotoImage(Image.open(dirtem))
-        l = self.imagelista.lista[1]
-        self.listaL[0].config(image=l)
-        self.lCVimagen.config(image=l)
-        self.textResolucionCV.set(str(self.fila)+" x "+str(self.columna))
-        self.textTamnnoCV.set(str(self.fila*self.columna))
-
-
-
+        except:
+            self.direccionString=""
+            t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"El archivo seleccionado\nno es valido",))
+            t.start()
 
     def botonCancelar(self,opcion):
         if opcion==0:
@@ -274,97 +298,19 @@ class Ventana:
 
     def botonAceptar(self,opcion):
         if opcion==0:
-            self.mostrarOcultar(self.inicio,self.cargadoV)
+            self.combalidarCargado()
         elif opcion==1:
-            paso=True
-            try:
-                altura=float(self.textVariableAlturaAV.get())
-                if altura<=0.0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Altura no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.altura=altura
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en Altura",))
-                t.start()
-            try:
-                escala=float(self.textVariableEscalaAV.get())
-                if escala<=0.0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Escala no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.escala=escala
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en Escala",))
-                t.start()
-            try:
-                filtro=int(self.textVariableFiltradoAV.get())
-                if filtro<=0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Filtro no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.filtro=filtro
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en filtro",))
-                t.start()
-            try:
-                ajuste=float(self.textVariableAjusteAV.get())
-                if ajuste<=0.0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Ajuste no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.ajuste=ajuste
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en ajuste",))
-                t.start()
-            try:
-                circulo=int(self.textVariableCirculoAV.get())
-                if circulo<=0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Circulo no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.circulo=circulo
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en circulo",))
-                t.start()
-            try:
-                latitud=float(self.textVariableLatitudAV.get())
-                if latitud<=0.0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Latitud no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.coodenadas[0]=latitud
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en Latitud",))
-                t.start()
-            try:
-                longitud=float(self.textVariableLongitudAV.get())
-                if longitud<=0.0:
-                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Longitud no valida",))
-                    t.start()
-                    paso=False
-                else:
-                    self.coodenadas[1]=latitud
-            finally:
-                paso=False
-                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en Longitud",))
-                t.start()
+            self.combalidacionAjustes()
 
-
-            if paso:
-                self.mostrarOcultar(self.inicio,self.ajusteV)
+    def iniciarVentanaAjustes(self):
+        self.textVariableAlturaAV.set(str(self.coodenadas[0]))
+        self.textVariableLongitudAV.set(str(self.coodenadas[1]))
+        self.textVariableAlturaAV.set(str(self.altura))
+        self.textVariableEscalaAV.set(str(self.escala))
+        self.textVariableFiltradoAV.set(str(self.filtro))
+        self.textVariableAjusteAV.set(str(self.ajuste))
+        self.textVariableCirculoAV.set(str(self.circulo))
+        self.mostrarOcultar(self.ajusteV,self.inicio)
 
     def errorMesaje(self,textoError,mensaje):
         textoError.set(mensaje)
@@ -372,13 +318,149 @@ class Ventana:
         textoError.set(" ")
         return
 
-
     def prueba(self):
         print "Hola Mundo"
 
-    def prueba2(self):
-        print self.textboxTipoCV.get()
-        
+    def combalidacionAjustes(self):
+        estado=True
 
+        altura=self.altura
+        escala=self.escala
+        filtro=self.filtro
+        ajuste=self.ajuste
+        circulo=self.circulo
+        coordenadas=self.coodenadas
+        try:
+            print self.textVariableAlturaAV.get()
+            altura=float(self.textVariableAlturaAV.get())
+            if altura<=0.0:
+                estado=False
+                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"El valor debe ser superior a 0.0\nen Altura de vuelo",))
+                t.start()
+            else:
+                try:
+                    escala=float(self.textVariableEscalaAV.get())
+                    if estado<=0:
+                        estado=False
+                        t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"El valor debe ser superior a 0.0\nen Escala PxM",))
+                        t.start()
+                    else:
+                        try:
+                            filtro=int(self.textVariableFiltradoAV.get())
+                            if filtro<=0:
+                                estado=False
+                                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"El valor debe ser superior a 0\nen Filtro de ruido",))
+                                t.start()
+                            else:
+                                try:
+                                    ajuste=float(self.textVariableAjusteAV.get())
+                                    if ajuste<=0.0:
+                                        estado=False
+                                        t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"El valor debe ser superior a 0.0\nen Ajuste de proximidad",))
+                                        t.start()
+                                    else:
+                                        try:
+                                            circulo=int(self.textVariableCirculoAV.get())
+                                            if circulo<=0:
+                                                estado=False
+                                                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"El valor debe ser superior a 0\nen Tamanno circulo",))
+                                                t.start()
+                                            else:
+                                                try:
+                                                    coordenadas[0]=float(self.textVariableLatitudAV.get())
+                                                    coordenadas[1]=float(self.textVariableLongitudAV.get())
+                                                except:
+                                                    estado=False
+                                                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en campo\nCoordenadas",))
+                                                    t.start()
+                                        except:
+                                            estado=False
+                                            t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en campo\nTamanno Circulo",))
+                                            t.start()
+                                except:
+                                    estado=False
+                                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en campo\nAjuste de proximidad",))
+                                    t.start()
+                        except:
+                            estado=False
+                            t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en campo\nFiltro de ruido",))
+                            t.start()
+                except:
+                    estado=False
+                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en campo\nEscala PxM",))
+                    t.start()
+        except:
+            estado=False
+            t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorAV,"Solo numeros en campo\nAltura de vuelo",))
+            t.start()
+
+        if estado:
+            self.altura=altura
+            self.escala=escala
+            self.filtro=filtro
+            self.ajuste=ajuste
+            self.circulo=circulo
+            self.coodenadas=coordenadas
+            self.mostrarOcultar(self.inicio,self.ajusteV)
         
+    def combalidarCargado(self):
+        coordenadas=self.coodenadas
+        escala=self.escala
+        altura=self.altura
+        estado=True
+
+        if self.direccionString=="":
+            estado=False
+            t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"Seleccione una\nImagen",))
+            t.start()
+        else:
+            try:
+                coordenadas[0]=float(self.textLatitudCV.get())
+                coordenadas[1]=float(self.textLongitudCV.get())
+                try:
+                    altura=float(self.textboxAlturaCV.get())
+                    if altura<=0.0:
+                        estado=False
+                        t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"El valor de altura de vuelo\ndebe ser mayor a 0.0",))
+                        t.start()
+                    else:
+                        try:
+                            escala=float(self.textboxEscalaCV.get())
+                            if escala<=0.0:
+                                estado=False
+                                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"El valor de Escala de\n pixeles debe ser mayor a 0.0",))
+                                t.start()
+                        except:
+                            estado=False
+                            t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"El valor de Escala de pixeles\ndebe ser numerico",))
+                            t.start()
+                except:
+                    estado=False
+                    t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"El valor de altura de vuelo\ndebe ser numerico",))
+                    t.start()
+
+            except:
+                estado=False
+                t = threading.Thread(target=self.errorMesaje,args=(self.textVariableErrorCV,"El valor de cordenadas debe\nser numerico",))
+                t.start()
+        if estado:
+            self.escala=escala
+            self.altura=altura
+            self.mostrarOcultar(self.inicio,self.cargadoV)
+
+    def contarPlantas(self):
+        print self.direccionString
+        if self.direccionString=="":
+            t = threading.Thread(target=self.errorMesaje,args=(self.j2,"Error de seleccion",))
+            t.start()
+        else:
+            self.contador=CC.ConteoCombinado(self.direccionString)
+            resultado=self.contador.mi_contadorAgrupado(self.filtro,self.ajuste,self.circulo)
+            if len(resultado)>0:
+                dirtem = self.ajustarConParametro(resultado[0])
+                self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open(dirtem))
+                l = self.imagelista.lista[2]
+                self.listaL[1].config(image=l)
+                self.j2.set(str(resultado[1]))
+
 

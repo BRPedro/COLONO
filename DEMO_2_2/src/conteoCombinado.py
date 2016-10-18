@@ -69,54 +69,58 @@ class ConteoCombinado:
         return lista
 
     def mi_contadorAgrupado(self, limitePatron,limiteCercania, circulo):
-        listapuntos = []
-        for f in range(self.fila):
-            for c in range(self.columna):
-                rojo, verde, azul = self.matrizOrig[f][c]
-                if (rojo < verde) and (azul < verde):
-                    listapuntos.append([[f, c]])
-                    self.newData[f][c] = 1
-                else:
-                    self.newData[f][c] = 0
+        try:
+            listapuntos = []
+            for f in range(self.fila):
+                for c in range(self.columna):
+                    rojo, verde, azul = self.matrizOrig[f][c]
+                    if (rojo < verde) and (azul < verde):
+                        listapuntos.append([[f, c]])
+                        self.newData[f][c] = 1
+                    else:
+                        self.newData[f][c] = 0
 
-        while True:
-            inicio, siguiente = 0, 1
-            bandera = True
-            while siguiente < len(listapuntos):
-                bandera2 = True
-                for lis in listapuntos[inicio]:
-                    if self.busqueda(lis[0], lis[1], listapuntos[siguiente]):
-                        bandera2 = False
-                        bandera = False
-                        listapuntos[inicio] = listapuntos[inicio] + listapuntos[siguiente]
-                        listapuntos.pop(siguiente)
-                        break
-                if bandera2:
-                    inicio += 1
-                    siguiente += 1
-            if bandera:
-                break
-        listapuntos=self.borrarXcantidadElemento(listapuntos,limitePatron)
-        listapuntos=self.burbuja(listapuntos)
-        listapuntos=self.agrupamientoXproximidad(listapuntos,limiteCercania)
-        print len(listapuntos)
-        for i in listapuntos:
-            minF, minC = self.fila-1, self.columna-1
-            maxF, maxC = 0, 0
-            for ii in i:
-                if ii[0] < minF:
-                    minF = ii[0]
-                if ii[0] > maxF:
-                    maxF = ii[0]
-                if ii[1] < minC:
-                    minC = ii[1]
-                if ii[1] > maxC:
-                    maxC = ii[1]
-            self.centroides.append([((maxC-minC) / 2) + minC,((maxF-minF) / 2) + minF])
-            tem = cv2.imread(self.dir)
-            for i in self.centroides:
-                cv2.circle(tem, (i[0], i[1]), circulo, (0, 0, 255), 0)
-            cv2.imwrite('imagenProceso\\contado1.jpg', tem)
+            while True:
+                inicio, siguiente = 0, 1
+                bandera = True
+                while siguiente < len(listapuntos):
+                    bandera2 = True
+                    for lis in listapuntos[inicio]:
+                        if self.busqueda(lis[0], lis[1], listapuntos[siguiente]):
+                            bandera2 = False
+                            bandera = False
+                            listapuntos[inicio] = listapuntos[inicio] + listapuntos[siguiente]
+                            listapuntos.pop(siguiente)
+                            break
+                    if bandera2:
+                        inicio += 1
+                        siguiente += 1
+                if bandera:
+                    break
+            listapuntos=self.borrarXcantidadElemento(listapuntos,limitePatron)
+            listapuntos=self.burbuja(listapuntos)
+            listapuntos=self.agrupamientoXproximidad(listapuntos,limiteCercania)
+            print len(listapuntos)
+            for i in listapuntos:
+                minF, minC = self.fila-1, self.columna-1
+                maxF, maxC = 0, 0
+                for ii in i:
+                    if ii[0] < minF:
+                        minF = ii[0]
+                    if ii[0] > maxF:
+                        maxF = ii[0]
+                    if ii[1] < minC:
+                        minC = ii[1]
+                    if ii[1] > maxC:
+                        maxC = ii[1]
+                self.centroides.append([((maxC-minC) / 2) + minC,((maxF-minF) / 2) + minF])
+                tem = cv2.imread(self.dir)
+                for i in self.centroides:
+                    cv2.circle(tem, (i[0], i[1]), circulo, (0, 0, 255), 0)
+                cv2.imwrite('imagenProceso\\contado1.jpg', tem)
+            return [tem,len(self.centroides)]
+        except:
+            return []
 
     """
     Metodo que borra patrones que no cumplan el limite de elementos minimo
@@ -218,8 +222,8 @@ class ConteoCombinado:
             if bandera:
                 break
         return listaGrupos
-"""
-n = ConteoCombinado("C:\\Users\\PBR\\Documents\\NetBeansProjects\\COLONO\\COLONO\\DEMO2\\src\\corte.jpg")
-n.mi_contadorAgrupado(2,20,10)
-"""
+
+#n = ConteoCombinado("C:\\Users\\PBR\\Documents\\NetBeansProjects\\COLONO\\COLONO\\DEMO2\\src\\corte.jpg")
+#n.mi_contadorAgrupado(2,20,10)
+
 

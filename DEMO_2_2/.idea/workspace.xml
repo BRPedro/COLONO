@@ -20,34 +20,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="demo_2_2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/demo_2_2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ventana.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ventana.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="371" column="23" selection-start-line="371" selection-start-column="23" selection-end-line="371" selection-end-column="23" />
+            <state relative-caret-position="242">
+              <caret line="232" column="117" selection-start-line="232" selection-start-column="117" selection-end-line="232" selection-end-column="117" />
               <folding>
                 <element signature="e#306#327#0" expanded="true" />
+                <element signature="e#12307#12349#0" expanded="false" />
+                <element signature="e#12390#12901#0" expanded="false" />
+                <element signature="e#12953#13442#0" expanded="false" />
+                <element signature="e#13485#13539#0" expanded="false" />
+                <element signature="e#13582#14348#0" expanded="false" />
+                <element signature="e#14394#14548#0" expanded="false" />
+                <element signature="e#14593#14707#0" expanded="false" />
+                <element signature="e#14754#15211#0" expanded="false" />
+                <element signature="e#15267#15355#0" expanded="false" />
+                <element signature="e#15387#15405#0" expanded="false" />
+                <element signature="e#15451#20036#0" expanded="false" />
+                <element signature="e#20087#22171#0" expanded="false" />
+                <element signature="e#22210#22883#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conteoCombinado.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/conteoCombinado.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="223" column="3" selection-start-line="223" selection-start-column="3" selection-end-line="223" selection-end-column="3" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -55,19 +48,12 @@
       <file leaf-file-name="imagenes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/imagenes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="16" column="92" selection-start-line="16" selection-start-column="92" selection-end-line="16" selection-end-column="92" />
+            <state relative-caret-position="360">
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="20" />
               <folding>
                 <element signature="e#234#255#0" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="corte.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/corte.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -133,6 +119,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DEMO_2_2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DEMO_2_2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imagenesInterfaz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="principal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -379,8 +387,8 @@
     <recent_temporary>
       <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Python.demo_2_2" />
-        <item index="1" class="java.lang.String" itemvalue="Python.imagenes" />
-        <item index="2" class="java.lang.String" itemvalue="Python.conteoCombinado" />
+        <item index="1" class="java.lang.String" itemvalue="Python.conteoCombinado" />
+        <item index="2" class="java.lang.String" itemvalue="Python.imagenes" />
       </list>
     </recent_temporary>
   </component>
@@ -391,19 +399,19 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-187" width="1936" height="1056" extended-state="6" />
+    <frame x="1358" y="-187" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17702845" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46536797" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.241342" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -439,15 +447,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/demo_2_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -458,15 +466,30 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#306#327#0" expanded="true" />
+            <element signature="e#12307#12349#0" expanded="false" />
+            <element signature="e#12390#12901#0" expanded="false" />
+            <element signature="e#12953#13442#0" expanded="false" />
+            <element signature="e#13485#13539#0" expanded="false" />
+            <element signature="e#13582#14348#0" expanded="false" />
+            <element signature="e#14394#14548#0" expanded="false" />
+            <element signature="e#14593#14707#0" expanded="false" />
+            <element signature="e#14754#15211#0" expanded="false" />
+            <element signature="e#15267#15355#0" expanded="false" />
+            <element signature="e#15387#15405#0" expanded="false" />
+            <element signature="e#15451#20036#0" expanded="false" />
+            <element signature="e#20087#22171#0" expanded="false" />
+            <element signature="e#22210#22883#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/conteoCombinado.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="16" column="62" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="62" />
-          <folding />
+        <state relative-caret-position="4440">
+          <caret line="223" column="3" selection-start-line="223" selection-start-column="3" selection-end-line="223" selection-end-column="3" />
+          <folding>
+            <element signature="e#118#128#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -499,6 +522,19 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#306#327#0" expanded="true" />
+            <element signature="e#12307#12349#0" expanded="false" />
+            <element signature="e#12390#12901#0" expanded="false" />
+            <element signature="e#12953#13442#0" expanded="false" />
+            <element signature="e#13485#13539#0" expanded="false" />
+            <element signature="e#13582#14348#0" expanded="false" />
+            <element signature="e#14394#14548#0" expanded="false" />
+            <element signature="e#14593#14707#0" expanded="false" />
+            <element signature="e#14754#15211#0" expanded="false" />
+            <element signature="e#15267#15355#0" expanded="false" />
+            <element signature="e#15387#15405#0" expanded="false" />
+            <element signature="e#15451#20036#0" expanded="false" />
+            <element signature="e#20087#22171#0" expanded="false" />
+            <element signature="e#22210#22883#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -507,7 +543,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="16" column="62" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#118#128#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -540,6 +578,75 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#306#327#0" expanded="true" />
+            <element signature="e#12307#12349#0" expanded="false" />
+            <element signature="e#12390#12901#0" expanded="false" />
+            <element signature="e#12953#13442#0" expanded="false" />
+            <element signature="e#13485#13539#0" expanded="false" />
+            <element signature="e#13582#14348#0" expanded="false" />
+            <element signature="e#14394#14548#0" expanded="false" />
+            <element signature="e#14593#14707#0" expanded="false" />
+            <element signature="e#14754#15211#0" expanded="false" />
+            <element signature="e#15267#15355#0" expanded="false" />
+            <element signature="e#15387#15405#0" expanded="false" />
+            <element signature="e#15451#20036#0" expanded="false" />
+            <element signature="e#20087#22171#0" expanded="false" />
+            <element signature="e#22210#22883#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conteoCombinado.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="16" column="62" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="62" />
+          <folding>
+            <element signature="e#118#128#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="16" column="92" selection-start-line="16" selection-start-column="92" selection-end-line="16" selection-end-column="92" />
+          <folding>
+            <element signature="e#234#255#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corte.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/demo_2_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ventana.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#306#327#0" expanded="true" />
+            <element signature="e#12307#12349#0" expanded="false" />
+            <element signature="e#12390#12901#0" expanded="false" />
+            <element signature="e#12953#13442#0" expanded="false" />
+            <element signature="e#13485#13539#0" expanded="false" />
+            <element signature="e#13582#14348#0" expanded="false" />
+            <element signature="e#14394#14548#0" expanded="false" />
+            <element signature="e#14593#14707#0" expanded="false" />
+            <element signature="e#14754#15211#0" expanded="false" />
+            <element signature="e#15267#15355#0" expanded="false" />
+            <element signature="e#15387#15405#0" expanded="false" />
+            <element signature="e#15451#20036#0" expanded="false" />
+            <element signature="e#20087#22171#0" expanded="false" />
+            <element signature="e#22210#22883#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -548,7 +655,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="16" column="62" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#118#128#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -568,7 +677,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contado1.jpg" />
-    <entry file="file://$PROJECT_DIR$/src/imagenProceso/contado1.jpg">
+    <entry file="file://$PROJECT_DIR$/src/demo_2_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tem1.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -578,38 +695,80 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenesInterfaz/principal/ajustar.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenesInterfaz/principal/colonoImg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenesInterfaz/principal/logo.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenesInterfaz/principal/null.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenesInterfaz/principal/null2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenProceso/tem2fucion.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/imagenProceso/contado1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conteoCombinado.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2440">
+          <caret line="122" column="20" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="20" />
+          <folding>
+            <element signature="e#118#128#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/imagenes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="92" selection-start-line="16" selection-start-column="92" selection-end-line="16" selection-end-column="92" />
+        <state relative-caret-position="360">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="20" />
           <folding>
             <element signature="e#234#255#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/conteoCombinado.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="223" column="3" selection-start-line="223" selection-start-column="3" selection-end-line="223" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/demo_2_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ventana.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="371" column="23" selection-start-line="371" selection-start-column="23" selection-end-line="371" selection-end-column="23" />
+        <state relative-caret-position="242">
+          <caret line="232" column="117" selection-start-line="232" selection-start-column="117" selection-end-line="232" selection-end-column="117" />
           <folding>
             <element signature="e#306#327#0" expanded="true" />
+            <element signature="e#12307#12349#0" expanded="false" />
+            <element signature="e#12390#12901#0" expanded="false" />
+            <element signature="e#12953#13442#0" expanded="false" />
+            <element signature="e#13485#13539#0" expanded="false" />
+            <element signature="e#13582#14348#0" expanded="false" />
+            <element signature="e#14394#14548#0" expanded="false" />
+            <element signature="e#14593#14707#0" expanded="false" />
+            <element signature="e#14754#15211#0" expanded="false" />
+            <element signature="e#15267#15355#0" expanded="false" />
+            <element signature="e#15387#15405#0" expanded="false" />
+            <element signature="e#15451#20036#0" expanded="false" />
+            <element signature="e#20087#22171#0" expanded="false" />
+            <element signature="e#22210#22883#0" expanded="false" />
           </folding>
         </state>
       </provider>
