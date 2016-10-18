@@ -13,7 +13,9 @@ n=Tk()
 class listaImagens:
     def __init__(self):
 
-        self.lista=[ImageTk.PhotoImage(Image.open("imagenesInterfaz\\principal\\null.jpg")),PhotoImage(file="imagenesInterfaz\\principal\\logo.gif"),PhotoImage(file="imagenesInterfaz\\principal\\logo.gif")]
+        self.lista=[ImageTk.PhotoImage(Image.open("imagenesInterfaz\\principal\\null.jpg")),
+                    ImageTk.PhotoImage(Image.open("imagenesInterfaz\\principal\\null2.jpg")),
+                    PhotoImage(file="imagenesInterfaz\\principal\\logo.gif")]
         self.escaneo=[]
         self.proceso=[]
         for i in range(26):

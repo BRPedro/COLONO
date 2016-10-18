@@ -218,7 +218,8 @@ class ConteoCombinado:
             if bandera:
                 break
         return listaGrupos
-
+"""
 n = ConteoCombinado("C:\\Users\\PBR\\Documents\\NetBeansProjects\\COLONO\\COLONO\\DEMO2\\src\\corte.jpg")
 n.mi_contadorAgrupado(2,20,10)
+"""
 
