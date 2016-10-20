@@ -21,7 +21,7 @@ class listaImagens:
         for i in range(26):
             self.escaneo.append(ImageTk.PhotoImage(Image.open("imagenesInterfaz\\cargado\\escaneo\\"+str(i)+".jpg")))
         for i in range(8):
-            self.proceso.append(ImageTk.PhotoImage(Image.open("imagenesInterfaz\\cargado\\proceso\\"+str(i)+".jpg")))
+            self.escaneo.append(ImageTk.PhotoImage(Image.open("imagenesInterfaz\\cargado\\proceso\\"+str(i)+".jpg")))
     n.destroy()
 
 n.mainloop()

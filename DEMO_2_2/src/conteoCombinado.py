@@ -5,18 +5,28 @@ __date__ = "$11/10/2016 09:44:07 AM$"
 
 import cv2
 import numpy as np
+from Tkinter import *
+from imagenes import *
+import threading
+import time
 """
 Clase encargada de realizar el conteo de pinnas en una plantacion
 Su constructor recibe un string con la direccion de la imagen.
 """
 class ConteoCombinado:
     def __init__(self, direccion):
+        self.paso=0
         self.dir = direccion
         self.imagen = cv2.imread(direccion)
         self.matrizOrig = np.array(self.imagen)
         self.fila, self.columna, self.tipo = self.imagen.shape
         self.newData = np.zeros(shape=(self.fila, self.columna))
         self.centroides = []
+
+    def getPaso(self):
+        return self.paso
+    def setPaso(self,paso):
+        self.paso=paso
         
     """
     Metodo que busca los 8 vecinos mas cercanos de una coordenada (f,c)
@@ -68,8 +78,9 @@ class ConteoCombinado:
             i = i + 1
         return lista
 
-    def mi_contadorAgrupado(self, limitePatron,limiteCercania, circulo):
+    def contadorAgrupado(self, limitePatron,limiteCercania, circulo):
         try:
+            self.paso+=1
             listapuntos = []
             for f in range(self.fila):
                 for c in range(self.columna):
@@ -79,7 +90,7 @@ class ConteoCombinado:
                         self.newData[f][c] = 1
                     else:
                         self.newData[f][c] = 0
-
+            self.paso+=1
             while True:
                 inicio, siguiente = 0, 1
                 bandera = True
@@ -97,10 +108,13 @@ class ConteoCombinado:
                         siguiente += 1
                 if bandera:
                     break
+
+            self.paso+=1
             listapuntos=self.borrarXcantidadElemento(listapuntos,limitePatron)
             listapuntos=self.burbuja(listapuntos)
+            self.paso+=1
             listapuntos=self.agrupamientoXproximidad(listapuntos,limiteCercania)
-            print len(listapuntos)
+            self.paso+=1
             for i in listapuntos:
                 minF, minC = self.fila-1, self.columna-1
                 maxF, maxC = 0, 0
@@ -118,6 +132,7 @@ class ConteoCombinado:
                 for i in self.centroides:
                     cv2.circle(tem, (i[0], i[1]), circulo, (0, 0, 255), 0)
                 cv2.imwrite('imagenProceso\\contado1.jpg', tem)
+            self.paso+=1
             return [tem,len(self.centroides)]
         except:
             return []
@@ -222,6 +237,9 @@ class ConteoCombinado:
             if bandera:
                 break
         return listaGrupos
+
+    def inicioConteo(self,limitePatron,limiteCercania, circulo):
+        return self.contadorAgrupado(limitePatron,limiteCercania,circulo)
 
 #n = ConteoCombinado("C:\\Users\\PBR\\Documents\\NetBeansProjects\\COLONO\\COLONO\\DEMO2\\src\\corte.jpg")
 #n.mi_contadorAgrupado(2,20,10)

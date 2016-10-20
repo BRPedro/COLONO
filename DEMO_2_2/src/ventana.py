@@ -19,6 +19,7 @@ import conteoCombinado as CC
 
 class Ventana:
     def __init__(self):
+        self.proceso=False
         self.inicio = Tk()
         self.imagelista = listaImagens()
         self.direccionString = ""
@@ -231,8 +232,9 @@ class Ventana:
         self.textVariablePasoPV=StringVar()
         self.textVariablePasoPV.set("Paso: 1")
         self.labelTextPasoPV=Label(self.procesoV,textvariable=self.textVariablePasoPV,bg='white',width=10).grid(row=1,column=0)
-
-
+        t3 = threading.Thread(target=self.efecto)
+        t3.setDaemon(True)
+        t3.start()
 
         self.ajusteV.withdraw()
         self.cargadoV.withdraw()
@@ -242,6 +244,7 @@ class Ventana:
     def mostrarOcultar(self,ver,ocultar):#Mostrar ventana registro y ocultar la de inicio
         ocultar.withdraw()
         ver.deiconify()
+        return
         
     def ajustar(self):
         f,c,t=self.imagen.shape
@@ -454,13 +457,29 @@ class Ventana:
             t = threading.Thread(target=self.errorMesaje,args=(self.j2,"Error de seleccion",))
             t.start()
         else:
+
+            self.mostrarOcultar(self.procesoV,self.inicio)
             self.contador=CC.ConteoCombinado(self.direccionString)
-            resultado=self.contador.mi_contadorAgrupado(self.filtro,self.ajuste,self.circulo)
+            resultado=self.contador.inicioConteo(self.filtro,self.ajuste,self.circulo)
+            self.mostrarOcultar(self.inicio,self.procesoV)
             if len(resultado)>0:
                 dirtem = self.ajustarConParametro(resultado[0])
                 self.imagelista.lista[2] = ImageTk.PhotoImage(Image.open(dirtem))
                 l = self.imagelista.lista[2]
                 self.listaL[1].config(image=l)
                 self.j2.set(str(resultado[1]))
+
+    def efecto(self):
+        contador1=0
+        largo1=len(self.imagelista.escaneo)
+        while True:
+            imagen=self.imagelista.escaneo[contador1]
+            self.imagePV.config(image=imagen)
+            if contador1+1>=largo1:
+                contador1=0
+            else:
+                contador1+=1
+            time.sleep(0.25)
+        return
 
 
