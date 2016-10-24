@@ -115,7 +115,7 @@ class ConteoCombinado:
             self.paso+=1
             listapuntos=self.agrupamientoXproximidad(listapuntos,limiteCercania)
             self.paso+=1
-            for i in listapuntos:
+            for i in listapuntos:#
                 minF, minC = self.fila-1, self.columna-1
                 maxF, maxC = 0, 0
                 for ii in i:
@@ -206,7 +206,7 @@ class ConteoCombinado:
         return False
     
     """
-    Metodo que verifica los vecinos de los parones y si existen patrones mas cercanos al limite minimo borra el patron con menor cantidad de coordenadas
+    Metodo que verifica los vecinos de los patrones y si existen patrones mas cercanos al limite minimo borra el patron con menor cantidad de coordenadas
     Parametros:
         listaGrupos: lista [][][]
         limite: int, limite de cercania
@@ -230,7 +230,7 @@ class ConteoCombinado:
                         break
 
                     i2 += 1
-                if bandera2 == False:
+                if  bandera2== False:
                     bandera = False
                     break
                 i1 += 1
